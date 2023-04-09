@@ -8,7 +8,7 @@ import joblib
 cluster = 28
 
 # Load the combined JSON data
-with open('walker_steps/step_cluster_'+str(cluster)+'.json') as f:
+with open('falls/data_falls_4.json') as f:
     data = json.load(f)
 
 # Extract the values for each dimension and timestamp
@@ -36,7 +36,7 @@ motion_smooth = np.convolve(motion, weights, 'valid')
 # This assumes the timestamps are in Unix timestamp format
 times = [datetime.fromtimestamp(float(t)) for t in timestamps[window_size-1:]]
 
-n_states = 50
+n_states =50
 
 # Initialize the HMM model
 model = hmm.GaussianHMM(n_components=n_states, covariance_type="full")
@@ -55,8 +55,8 @@ for i in range(1, len(hidden_states)):
     if hidden_states[i] == current_state:
         cluster_length += 1
     else:
-        if cluster_length >= 75:
-            filtered_hidden_states[i-cluster_length:i] = 4
+        if cluster_length >= 80:
+            filtered_hidden_states[i-cluster_length:i] = 3
         current_state = hidden_states[i]
         cluster_length = 1
 
@@ -65,7 +65,7 @@ print("Filtered Hidden States:", filtered_hidden_states)
 print("Number of States:", model.n_components)
 
 # Save the model
-filename = 'trained_hmm_model/cluster_'+str(cluster)+'.joblib'
+filename = 'cluster_'+str(cluster)+'.joblib'
 joblib.dump(model, filename)
 
 # Load the saved model
@@ -73,7 +73,7 @@ loaded_model = joblib.load(filename)
 
 # Plot the observations and filtered hidden states
 fig, ax = plt.subplots()
-ax.plot((motion_smooth*10)-1, label="Observations")
+ax.plot((motion_smooth*10)+1.5, label="Observations")
 ax.plot(filtered_hidden_states, label="Filtered Hidden States")
 ax.legend()
 ax.set_xlabel("Time")
