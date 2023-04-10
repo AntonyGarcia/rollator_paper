@@ -5,7 +5,7 @@ from sklearn.preprocessing import LabelEncoder
 import joblib
 
 def load_dataset():
-    test_data = pd.read_csv("C:\\Users\\Antony Garcia\\Desktop\\wpi\\sensors\\python\\final_scripts\\manually_cut_data\\final_datasets\\test.csv")
+    test_data = pd.read_csv("C:\\Users\\Antony Garcia\\Desktop\\wpi\\rollator_paper\\python\\manually_cut_data\\final_datasets\\test.csv")
 
     # Extract labels from data
     test_y = np.array(test_data.iloc[:, 0])
@@ -21,16 +21,16 @@ def load_dataset():
 
 def load_model():
     # Load the trained model from file
-    model = joblib.load('C:\\Users\\Antony Garcia\\Desktop\\wpi\\sensors\\python\\final_scripts\\manually_cut_data\\final_trained_model\\trained_model.pkl')
+    model = joblib.load('C:\\Users\\Antony Garcia\\Desktop\\wpi\\rollator_paper\\python\\manually_cut_data\\final_trained_model\\trained_model.pkl')
     return model
 
 def test_model(model, test_x, test_y):
     # Use the trained model to make predictions on the test set
     predicted_y = model.predict(test_x)
 
-    #print(accuracy_score(test_y, predicted_y))
+    print(accuracy_score(test_y, predicted_y))
 
-    print(predicted_y[0])
+    #print(predicted_y[0])
 
     # 2 -> Step, 1 -> Motion, 0 -> Iddle
 

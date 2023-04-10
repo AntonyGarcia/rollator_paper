@@ -217,17 +217,19 @@ def create_raw_dataset():
         n_idle = len([f for f in os.listdir('extracted_steps') if f.startswith('iddle_')])
         n_motion = len([f for f in os.listdir('extracted_steps') if f.startswith('motion_')])
         n_step = len([f for f in os.listdir('extracted_steps') if f.startswith('step_')])
+        n_fall = len([f for f in os.listdir('extracted_steps') if f.startswith('fall_')])
 
         # select the minimum number of samples from each category
-        min_samples = min(n_idle, n_motion, n_step)
+        min_samples = min(n_idle, n_motion, n_step,n_fall)
 
         # randomly sample the selected number of samples from each category
         idle_samples = random.sample([f for f in os.listdir('extracted_steps') if f.startswith('iddle_')], min_samples)
         motion_samples = random.sample([f for f in os.listdir('extracted_steps') if f.startswith('motion_')], min_samples)
         step_samples = random.sample([f for f in os.listdir('extracted_steps') if f.startswith('step_')], min_samples)
+        fall_samples = random.sample([f for f in os.listdir('extracted_steps') if f.startswith('fall_')], min_samples)
 
         # process selected files
-        for filename in idle_samples + motion_samples + step_samples:
+        for filename in idle_samples + motion_samples + step_samples+fall_samples:
             with open(os.path.join('extracted_steps', filename)) as f:
                 data = json.load(f)
 
@@ -246,6 +248,8 @@ def create_raw_dataset():
                 label = 'step'
             elif filename.startswith('iddle_'):
                 label = 'idle'
+            elif filename.startswith('fall_'):
+                label = 'fall'
             else:
                 label = 'motion'
 
@@ -340,7 +344,7 @@ def main():
     overall_intervals+=motion
     write_intervals_to_csv(overall_intervals, 'intervals.csv')
     copy_files("added_steps","extracted_steps")
-    copy_files("added_steps", "extracted_steps")
+    copy_files("extracted_falls", "extracted_steps")
     extract_idle_samples()
     extract_steps(all_intervals, "step")
     extract_steps(motion,"motion")
