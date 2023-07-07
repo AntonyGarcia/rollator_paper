@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
-    <content url="file://$MODULE_DIR$" />
-    <orderEntry type="jdk" jdkName="Python 3.10" jdkType="Python SDK" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/python/audio_stuff/extracted_negative_samples" />
+      <excludeFolder url="file://$MODULE_DIR$/python/audio_stuff/extracted_positive_samples" />
+      <excludeFolder url="file://$MODULE_DIR$/python/audio_stuff/mixed_sound_samples" />
+      <excludeFolder url="file://$MODULE_DIR$/python/audio_stuff/mixed_positive_samples" />
+      <excludeFolder url="file://$MODULE_DIR$/python/audio_stuff/extracted_natural_samples" />
+      <excludeFolder url="file://$MODULE_DIR$/python/audio_stuff/final_datasets" />
+    </content>
+    <orderEntry type="jdk" jdkName="C:\Users\Antony Garcia\anaconda3" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PackageRequirementsSettings">
